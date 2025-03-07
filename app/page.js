@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 
 
-function page() {
+function Page() {
     const [form ,setForm] =useState({originalUrl:"", shortUrl:""})
     const [success ,setSuccess] =useState("")
     const [shortLink ,setShortLink] =useState("")
@@ -72,4 +72,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
