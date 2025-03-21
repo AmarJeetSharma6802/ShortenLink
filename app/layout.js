@@ -25,6 +25,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
+        <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVgaeV7d7Zv9YyyRzK8RiM-KxkZW1Z5aHyMA&s" />
+
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
       <Navbar/>
