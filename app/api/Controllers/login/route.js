@@ -5,12 +5,12 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
+ await DBconnect();
   // const body = await req.json();
   // console.log("Request Body:", body);
 
-  const { email, password } = body;
+  const { email, password } = await req.json()
 
-  // Check for missing fields
   if (!email || !password) {
     return new NextResponse(
       JSON.stringify({ message: "All fields are required" }),
@@ -18,9 +18,8 @@ export async function POST(req) {
     );
   }
 
-  console.log("Email and Password:", email, password); 
+  // console.log("Email and Password:", email, password); 
 
-  DBconnect();
 
   // Query the database for the user
   const user = await userForm.findOne({ email });
@@ -55,18 +54,22 @@ export async function POST(req) {
     { expiresIn: "5d" }
   );
 
+  user.refreshToken = refreshToken;
+  await user.save();
+  console.log("Saved refreshToken in DB:", refreshToken);
+
 //   console.log("SECRET_KEY:", process.env.JWTSECRETKEY);
 // console.log("REFRESH_JWTSECRETKEY:", process.env.REFRESH_JWTSECRETKEY);
 
-  const response = new NextResponse(
-    JSON.stringify({
-      user: { _id: user._id, email: user.email },
-      message: "User logged in successfully",
-      accessToken,
-      refreshToken,
-    }),
+  const response =  NextResponse.json(
+    { message: "Login successful",
+       user: { name: user.name, email: user.email },  accessToken,
+       refreshToken},
     { status: 200 }
-  );
+    
+  )
+    
+  
 
   response.cookies.set("accessToken", accessToken, { httpOnly: true, secure: true, path: "/" });
   response.cookies.set("refreshToken", refreshToken, { httpOnly: true, secure: true, path: "/" });

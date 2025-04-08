@@ -37,14 +37,14 @@ export async function POST(req){
             confirmPssword
         })
 
-        const token = jwt.sign({_id:create._id,email:create.email},
+        const accessToken = jwt.sign({_id:create._id,email:create.email},
             process.env.JWTSECRETKEY,
             {expiresIn:"1d"}
         )
 
         const user  = await userForm.findById(create._id).select("-password")
         
-        return NextResponse.json({user,meassage:"user register succesfully",token},{status:200})
+        return NextResponse.json({user,meassage:"user register succesfully",accessToken},{status:200})
 
         
     } catch (error) {
