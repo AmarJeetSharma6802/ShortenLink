@@ -1,14 +1,14 @@
 import userForm from "@/app/api/model/model.form.js";
 import { NextResponse } from "next/server";
 import DBconnect from "@/app/api/utils/db.connect";
-import { authUser } from "@/app/middleware/authUser.js";
+import { authUser } from "@/app/api/middleware/authUser.js";
 import bcrypt from "bcryptjs";
 
 
 export async function POST(req) {
     await DBconnect();
     const { user, error } = await authUser(req);
-    console.log("user from authUser:", user);
+    // console.log("user from authUser:", user);
     if (error) {
         return error;
     }

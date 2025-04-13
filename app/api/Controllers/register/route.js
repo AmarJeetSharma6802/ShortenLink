@@ -1,52 +1,54 @@
 import userForm from "@/app/api/model/model.form.js";
 import { NextResponse } from "next/server";
 import DBconnect from "@/app/api/utils/db.connect"; 
-import jwt from "jsonwebtoken"
-import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
+export async function POST(req) {
+    await DBconnect();
 
-export async function POST(req){
-    DBconnect()
     try {
-        
-        const {name,email,password,confirmPssword} = await req.json()
+        const { name, email, password, confirmPassword } = await req.json();
 
-        if(!name || ! email || !password ||! confirmPssword){
+        if (!name || !email || !password || !confirmPassword) {
             return NextResponse.json({ message: "Please fill in all fields." }, { status: 400 });
         }
 
-        if(password !== confirmPssword){
-            return NextResponse.json({Message :"password doest not Match"} , {status:400})
+        if (password !== confirmPassword) {
+            return NextResponse.json({ message: "Passwords do not match" }, { status: 400 });
         }
 
         const findUser = await userForm.findOne({
-            $or:[{name },{email}]
-        })
+            $or: [{ name }, { email }]
+        });
 
-        const salt = await bcrypt.genSalt(10); // ✅ salt will be a string
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        if(findUser){
-            return NextResponse.json({ message: "User already exists" },{status:400})
+        if (findUser) {
+            return NextResponse.json({ message: "User already exists" }, { status: 400 });
         }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         const create = await userForm.create({
             name,
             email,
-            password:hashedPassword,
-            confirmPssword
-        })
+            password: hashedPassword,
+            confirmPassword
+        });
 
-        const accessToken = jwt.sign({_id:create._id,email:create.email},
+        const accessToken = jwt.sign(
+            { _id: create._id, email: create.email },
             process.env.JWTSECRETKEY,
-            {expiresIn:"1d"}
-        )
+            { expiresIn: "1d" }
+        );
 
-        const user  = await userForm.findById(create._id).select("-password")
-        
-        return NextResponse.json({user,meassage:"user register succesfully",accessToken},{status:200})
+        const user = await userForm.findById(create._id).select("-password");
 
-        
+        return NextResponse.json(
+            { user, message: "User registered successfully", accessToken },
+            { status: 200 }
+        );
+
     } catch (error) {
         console.error("Error in user registration:", error);
         return NextResponse.json({ message: "Internal Server Error", error: error.message }, { status: 500 });

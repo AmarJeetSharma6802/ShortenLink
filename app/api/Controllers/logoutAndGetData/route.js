@@ -1,7 +1,7 @@
 import userForm from "@/app/api/model/model.form.js";
 import { NextResponse } from "next/server";
 import DBconnect from "@/app/api/utils/db.connect";
-import { authUser } from "@/app/middleware/authUser.js";
+import { authUser } from "@/app/api/middleware/authUser.js";
 
 export async function POST(req) {
    await DBconnect();
