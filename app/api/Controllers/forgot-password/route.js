@@ -18,7 +18,7 @@ export async function POST(req){
 
         const resetLink = `http://localhost:3000/reset-password?token=${token}`;
 
-        console.log(resetLink)
+        // console.log(resetLink)
         return NextResponse.json({ message: "Reset link sent to your email", resetLink }, { status: 200 });
     } catch (error) {
         console.error("Forgot Password Error:", error);
