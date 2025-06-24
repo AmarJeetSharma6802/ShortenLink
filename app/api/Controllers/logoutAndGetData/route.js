@@ -6,7 +6,7 @@ import { authUser } from "@/app/api/middleware/authUser.js";
 export async function POST(req) {
    await DBconnect();
     const { user, error } = await authUser(req);
-    console.log("user from authUser:", user);
+    // console.log("user from authUser:", user);
     if (error) {
         return error;
     }
@@ -51,6 +51,6 @@ export async function GET(req) {
   await DBconnect();
 
   const { user, error } = await authUser(req);
-  console.log("user :",  user)
+  // console.log("user :",  user)
   return NextResponse.json(user,{message:"User fetched Successfully"},{ status: 200 });
 }
