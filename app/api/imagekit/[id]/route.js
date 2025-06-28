@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { imagekit } from "../../utils/imagekitKeys";
+import { imagekit } from "../../utils/imagekitKeys.js";
 import item from "../../model/rest.model";
 import DBconnect from "../../utils/db.connect";
 
