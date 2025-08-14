@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-function page() {
+function Page() {
     const router = useRouter()
     const item =[
          {
@@ -86,4 +86,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
