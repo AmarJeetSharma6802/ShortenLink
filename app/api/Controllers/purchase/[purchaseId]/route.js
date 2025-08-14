@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import DBconnect from "@/app/api/utils/db.connect";
-import Purchase from "@/app/api/model/PurchaseModel.js";
+import DBconnect from "../../../utils/db.connect";
+import Purchase from "../../../model/PurchaseModel";
 
 export async function DELETE(req, { params }) {
     await DBconnect()

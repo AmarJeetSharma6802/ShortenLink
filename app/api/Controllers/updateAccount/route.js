@@ -1,7 +1,7 @@
 import userForm from "@/app/api/model/model.form.js";
 import { NextResponse } from "next/server";
-import DBconnect from "@/app/api/utils/db.connect";
-import { authUser } from "@/app/api/middleware/authUser.js";
+import DBconnect from "../../utils/db.connect";
+import { authUser } from "../../middleware/authUser";
 
 export  async function PATCH(req) {
     await DBconnect();
