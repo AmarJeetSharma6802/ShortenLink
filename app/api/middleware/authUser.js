@@ -1,6 +1,6 @@
 // app/middleware/authUser.js
 
-import userForm from "@/app/api/model/model.form.js";
+import userForm from "../model/model.form";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 

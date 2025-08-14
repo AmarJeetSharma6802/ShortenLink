@@ -1,4 +1,4 @@
-import userForm from "@/app/api/model/model.form.js";
+import userForm from "../../model/model.form";
 import { NextResponse } from "next/server";
 import DBconnect from "../../utils/db.connect";
 import { authUser } from "../../middleware/authUser";
