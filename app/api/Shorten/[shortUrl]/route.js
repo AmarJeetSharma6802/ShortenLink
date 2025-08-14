@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import DBconnect from "@/app/api/utils/db.connect";
-import ShortenLink from "@/app/api/model/model.shortenLink";
+import DBconnect from "../../utils/db.connect";
+import ShortenLink from "../../model/model.shortenLink";
 
 export async function GET(req) {
   await DBconnect();
