@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import DBconnect from "../../utils/db.connect.js";
-import item from "@/app/api/model/rest.model.js";
+import item from "../../model/rest.model.js";
 import { writeFile, mkdir } from "fs/promises";
 import { uploadOnCloudinary } from "../../utils/cloudinary.js";
 import fs from "fs";

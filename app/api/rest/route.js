@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import item from "@/app/api/model/rest.model.js"
+import item from "../model/rest.model"
 import DBconnect from "../utils/db.connect.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { writeFile } from "fs/promises";
