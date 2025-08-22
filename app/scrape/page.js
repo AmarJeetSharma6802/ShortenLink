@@ -7,24 +7,38 @@ export default function Page() {
 
   useEffect(() => {
     fetch("/api/scrape")
-      .then(res => res.json())
-      .then(resData => {
-        // console.log(resData); 
-        setData(resData.internships || []); 
+      .then((res) => res.json())
+      .then((resData) => {
+        setData(resData.internships || []);
       });
   }, []);
 
+
+  const parseSalary = (salaryStr) => {
+    if (!salaryStr) return 0;
+    const match = salaryStr.replace(/[^0-9]/g, ""); // sirf number nikalna
+    return match ? parseInt(match, 10) : 0;
+  };
+
   return (
     <div>
-      <h1>Scraped Internships</h1>
-      {
-        data.map((item, i) => (
-          <p key={i}>
-            <b>{item.title}</b> — {item.company} ({item.location})
-          </p>
-        ))
-       
-      }
+      <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+        Scraped Internships
+      </h1>
+      <div className="scrape_flex">
+        {data
+          .filter((item) => parseSalary(item.salary) > 12000) 
+          .map((item, i) => (
+            <div key={i} className="scrape">
+              <ul>
+                <li>title: {item.title}</li>
+                <li>company name: {item.company}</li>
+                <li>location: {item.location}</li>
+                <li>salary: {item.salary}</li>
+              </ul>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

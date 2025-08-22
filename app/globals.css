@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 
 html,
@@ -87,4 +88,17 @@ button{
   align-items: center;
   justify-content: center;
   font-size: 19px;
+}
+.scrape_flex{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem;
+}
+.scrape{
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 4px;
+  line-height: 1.5;
 }
