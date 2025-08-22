@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 export async function GET() {
   try {
     // const url = "https://internshala.com/internships";
-    const url = "https://www.glassdoor.co.in/Job/index.htm";
+    const url = "https://internshala.com/internships/backend-development,front-end-development,full-stack-development-internship-in-delhi";
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
 
