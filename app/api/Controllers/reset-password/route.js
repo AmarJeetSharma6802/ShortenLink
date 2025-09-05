@@ -1,7 +1,6 @@
 import userForm from "../../model/model.form";
 import { NextResponse } from "next/server";
 import DBconnect from "../../utils/db.connect";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
@@ -16,24 +15,22 @@ export async function POST(req) {
       });
     }
 
-    let decoded;
-    try {
-      decoded = jwt.verify(token, process.env.JWTSECRETKEY);
-    } catch (error) {
-      return NextResponse.json(
-        { message: "Invalid or expired token" },
-        { status: 401 }
-      );
-    }
-    const user = await userForm.findById(decoded.user_id);
-    if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
-    }
+    const user = await userForm.findOne(
+     {
+       resetPasswordToken:token,
+       resetPasswordTokenExpire: { $gt: Date.now() }
+     }
+    );
+    if (!user) return res.status(400).json({ message: "Invalid or expired token" });
+
     const salt = await bcrypt.genSalt(10);
 
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
     user.password = hashedPassword;
+
+    user.resetPasswordToken = undefined
+    user.resetPasswordTokenExpire = undefined
 
     await user.save()
 
