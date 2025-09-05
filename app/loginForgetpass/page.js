@@ -23,6 +23,8 @@ export default function AuthForm() {
 
       const data = await res.json();
       setMessage(data.message || "Done");
+
+
     } catch (err) {
       console.error(err);
       setMessage("Something went wrong!");
