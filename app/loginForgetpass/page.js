@@ -31,6 +31,10 @@ export default function AuthForm() {
     }
   };
 
+  const handleForget =()=>{
+    setIsForget((prev) => !prev)
+  }
+
   return (
     <div className="auth-container">
       <h2>{isForget ? "Forgot Password" : "Login"}</h2>
@@ -59,7 +63,7 @@ export default function AuthForm() {
         </button>
       </form>
 
-      <p className="toggle-text" onClick={() => setIsForget(!isForget)}>
+      <p className="toggle-text" onClick={handleForget}>
         {isForget ? "Back to Login" : "Forgot Password?"}
       </p>
 
