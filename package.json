@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.14.2",
+    "@google/generative-ai": "^0.24.1",
     "axios": "^1.11.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -24,6 +25,7 @@
     "next": "^15.3.0",
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
+    "react-chatbotify": "^2.3.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {

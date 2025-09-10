@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yes / No – I love you too 💖</title>
+  <style>
+    :root {
+      --bg: #0f172a; /* slate-900 */
+      --card: #111827; /* gray-900 */
+      --text: #e5e7eb; /* gray-200 */
+      --muted: #9ca3af; /* gray-400 */
+      --yes: #16a34a; /* green-600 */
+      --no: #ef4444; /* red-500 */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+        "Helvetica Neue", "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      background: radial-gradient(1200px 800px at 50% -200px, #1f2937 0%, var(--bg) 60%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      width: min(92vw, 560px);
+      background: linear-gradient(180deg, #0b1224, #0a0f1e);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
+    p { margin: 0 0 1.25rem; color: var(--muted); }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.9rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      color: #fff;
+      user-select: none;
+      will-change: transform, left, top;
+    }
+
+    #yesBtn { background: var(--yes); box-shadow: 0 6px 16px rgba(22,163,74,0.35); }
+    #yesBtn:hover { transform: translateY(-1px) scale(1.02); }
+
+    #noBtn { background: var(--no); box-shadow: 0 6px 16px rgba(239,68,68,0.35); position: relative; }
+
+    .msg {
+      margin-top: 1.25rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      font-size:2.5rem;
+    }
+
+    .msg.show { opacity: 1; transform: translateY(0); }
+
+    /* cute floating hearts */
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      pointer-events: none;
+      animation: floatUp 1.8s ease-out forwards;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.9); opacity: 1; }
+      100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Will you be my forever friend? 🥹💘</h1>
+    <p>Yes pe click karoge to message aayega. No button pakadne ki koshish karo… 😂</p>
+
+    <div class="buttons">
+      <button id="yesBtn" aria-label="Yes">Yes ✅</button>
+      <button id="noBtn" aria-label="No">No ❌</button>
+    </div>
+
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const msg = document.getElementById('msg');
+
+    function showLove() {
+      msg.textContent = 'I love you too! 💖';
+      msg.classList.add('show');
+      // spawn some floating hearts
+      for (let i = 0; i < 220; i++) {
+        setTimeout(spawnHeart, i * 60);
+      }
+    }
+
+    function spawnHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = '💗';
+      const x = Math.random() * (window.innerWidth - 24);
+      const y = window.innerHeight - 80;
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 2000);
+    }
+
+    yesBtn.addEventListener('click', showLove);
+
+    // Move the "No" button to a random safe spot inside the viewport
+    function moveNoButton(ev) {
+      const padding = 16; // keep away from edges
+      const btn = noBtn;
+
+      // Ensure the button is taken out of the normal flow so it can move freely
+      btn.style.position = 'fixed';
+
+      const btnRect = btn.getBoundingClientRect();
+      const maxX = Math.max(0, window.innerWidth - btnRect.width - padding);
+      const maxY = Math.max(0, window.innerHeight - btnRect.height - padding);
+
+      // Try a few random positions; avoid placing too close to the cursor
+      let attempts = 0;
+      let x, y;
+      const cursorX = ev && ev.clientX != null ? ev.clientX : window.innerWidth / 2;
+      const cursorY = ev && ev.clientY != null ? ev.clientY : window.innerHeight / 2;
+
+      do {
+        x = Math.random() * maxX + padding / 2;
+        y = Math.random() * maxY + padding / 2;
+        attempts++;
+      } while (attempts < 10 && Math.hypot(x - cursorX, y - cursorY) < 160);
+
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+
+    // Run on mouse enter, focus (keyboard users), and also when cursor gets *close*
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('focus', moveNoButton);
+
+    // Optional: if the pointer comes within 100px, dodge pre-emptively
+    window.addEventListener('mousemove', (e) => {
+      const r = noBtn.getBoundingClientRect();
+      const near = e.clientX > r.left - 100 && e.clientX < r.right + 100 &&
+                   e.clientY > r.top - 100 && e.clientY < r.bottom + 100;
+      if (near) moveNoButton(e);
+    });
+
+    // Keep the button inside on resize
+    window.addEventListener('resize', () => moveNoButton());
+  </script>
+</body>
+</html>
