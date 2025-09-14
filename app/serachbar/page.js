@@ -41,7 +41,7 @@ export default function Home() {
           {results.map((bat) => (
             <li
               key={bat._id}
-              className="p-2 border-b last:border-none hover:bg-gray-100 cursor-pointer"
+              className=""
               onClick={() => handleSelect(bat)}
             >
               {bat.name}{" "}
