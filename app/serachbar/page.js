@@ -20,9 +20,9 @@ export default function Home() {
     }
   };
 
-  const handleSelect = (bat) => {
+  const handleSelect = (it) => {
    
-    router.push(`/serachbar/search?q=${query}&selected=${bat.name}`);
+    router.push(`/serachbar/search?q=${query}&selected=${it.name}`);
   };
 
   return (
