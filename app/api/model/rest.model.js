@@ -8,9 +8,7 @@ const itemSchema = new mongoose.Schema({
     age:{
         type :Number,
     },
-    image:{
-        type: String,
-    }
+    image: [{ type: String }],
 
 },{timestamps:true})
 

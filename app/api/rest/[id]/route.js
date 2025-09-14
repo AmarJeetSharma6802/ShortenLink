@@ -47,7 +47,7 @@ export async function PUT(req, { params }) {
 
       // ✅ Ensure directory exists
       const tempDir = "./public/temp";
-      await mkdir(tempDir, { recursive: true }); //// फोल्डर बना दो अगर नहीं है
+      await mkdir(tempDir, { recursive: true }); 
 
       const tempFilePath = `${tempDir}/${file.name}`;
       await writeFile(tempFilePath, buffer);
