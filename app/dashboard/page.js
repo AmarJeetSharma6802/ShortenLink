@@ -9,7 +9,7 @@ function Page() {
     const router = useRouter();
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         setToken(accessToken);
 
         const getData = async () => {
@@ -30,9 +30,10 @@ function Page() {
         getData();
     }, []);
 
+   
 
     const handleLogout = () => {
-        localStorage.removeItem("accessToken");
+        sessionStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setToken(null);
         router.push("/fronted/login");
