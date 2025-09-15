@@ -30,13 +30,6 @@ function Page() {
         getData();
     }, []);
 
-    const handlePurchase = () => {
-        if (token) {
-            alert("Purchase successful!");
-        } else {
-            alert("Purchase failed! Please log in.");
-        }
-    };
 
     const handleLogout = () => {
         localStorage.removeItem("accessToken");
@@ -50,7 +43,6 @@ function Page() {
             <h1>Dashboard</h1>
 
             <button onClick={() => router.push("/fronted/login")}>Login</button>
-            <button onClick={handlePurchase}>Purchase</button>
 
             {token ? (
                 <>
