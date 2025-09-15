@@ -44,10 +44,10 @@ export async function POST(req) {
 
         const user = await userForm.findById(create._id).select("-password");
 
-        return NextResponse.json(
-            { user, message: "User registered successfully", accessToken },
-            { status: 200 }
-        );
+         return NextResponse.json(
+      { user: { name: user.name, email: user.email, role: user.role }, message: "Registered", accessToken },
+      { status: 200 }
+    );
 
     } catch (error) {
         console.error("Error in user registration:", error);
