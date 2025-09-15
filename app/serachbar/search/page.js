@@ -31,7 +31,7 @@ export default function BatsPage() {
   }
   return (
     <div className="container">
-      <h1 className="title">Results for "{query}"</h1>
+      <h1 className="title">Results for {query}</h1>
 
       {bats.length === 0 ? (
         <p className="no-data">No bats found.</p>
