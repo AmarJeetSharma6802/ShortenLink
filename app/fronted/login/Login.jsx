@@ -27,8 +27,7 @@ function Login() {
             const data = await res.json();
 
             if (data.accessToken) {
-                localStorage.setItem("accessToken", data.accessToken);
-                localStorage.setItem("refreshToken", data.refreshToken);
+                sessionStorage.setItem("accessToken", data.accessToken);
                 alert(data.message);
                 router.push("/dashboard");
             } else {

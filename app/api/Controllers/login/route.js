@@ -125,11 +125,11 @@ export async function POST(req) {
     { status: 200 }
   );
 
-  response.cookies.set("accessToken", accessToken, {
-    httpOnly: true,
-    secure: true,
-    path: "/",
-  });
+  // response.cookies.set("accessToken", accessToken, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   path: "/",
+  // });
   response.cookies.set("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,

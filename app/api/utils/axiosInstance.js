@@ -1,26 +1,35 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
-  withCredentials: true, // ✅ cookie send/receive
+  baseURL: "/api",
+  withCredentials: true, // cookies bhejne ke liye
 });
 
+// Request Interceptor
+api.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("accessToken");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+// Response Interceptor
 api.interceptors.response.use(
-  (res) => res,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        // refresh token call
-        await axios.post("http://localhost:3000/api/Controllers/refresh-token", {}, { withCredentials: true });
+        const { data } = await api.post("/Controllers/refresh-token");
+        sessionStorage.setItem("accessToken", data.accessToken);
 
-        return api(originalRequest); 
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        return api(originalRequest);
       } catch (err) {
-        console.error("Refresh failed", err);
-        window.location.href = "/fronted/login"; 
+        sessionStorage.removeItem("accessToken");
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);
