@@ -1,5 +1,4 @@
-import { NextResponse } from "next/server.js";
-
+import { NextResponse } from "next/server";
 
 export function authorize(...allowedRoles) {
   return (req, user) => {
@@ -9,6 +8,6 @@ export function authorize(...allowedRoles) {
         { status: 403 }
       );
     }
-    return null; // authorized
+    return null;
   };
 }
