@@ -18,6 +18,7 @@ const FormSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    role: { type: String, enum: ["user", "admin", "developer"], default: "user" },
     refreshToken: {
       type: String,
     },
