@@ -8,7 +8,7 @@ export async function POST(req) {
     await DBconnect();
 
     try {
-        const { name, email, password, confirmPassword } = await req.json();
+        const { name, email, password, confirmPassword,role } = await req.json();
 
         if (!name || !email || !password || !confirmPassword) {
             return NextResponse.json({ message: "Please fill in all fields." }, { status: 400 });
@@ -33,7 +33,8 @@ export async function POST(req) {
             name,
             email,
             password: hashedPassword,
-            confirmPassword
+            confirmPassword,
+            role
         });
 
         const accessToken = jwt.sign(

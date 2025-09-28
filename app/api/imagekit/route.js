@@ -35,7 +35,7 @@ try {
      return NextResponse.json({ message: "Uploaded successfully", data: newItem }, { status: 201 });
 
 } catch (error) {
- return NextResponse.json({ error: err.message }, { status: 500 });
+ return NextResponse.json({ message:"error"}, { status: 500 });
 }
 }
 
