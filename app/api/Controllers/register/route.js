@@ -4,6 +4,14 @@ import DBconnect from "../../utils/db.connect";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+export async function GET(){
+    await DBconnect()
+
+    const allUserData = await userForm.find()
+
+    return NextResponse.json({message:"success", allUserData}, {status:201})
+}
+
 export async function POST(req) {
     await DBconnect();
 

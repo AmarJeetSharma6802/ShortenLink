@@ -43,8 +43,9 @@ export async function DELETE(req) {
     const { userId } = await req.json();
     if (!userId) return NextResponse.json({ message: "UserId required" }, { status: 400 });
 
-    await userForm.findByIdAndDelete(userId);
-    return NextResponse.json({ message: "User deleted successfully" }, { status: 200 });
+   const deleteUser =  await userForm.findByIdAndDelete(userId);
+   
+    return NextResponse.json({ message: "User deleted successfully",deleteUser }, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: "Delete failed", error: err.message }, { status: 500 });
   }
