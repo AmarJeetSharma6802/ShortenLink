@@ -8,3 +8,11 @@
   "dev": "concurrently \"next dev\" \"electron .\"",
   "build": "next build && electron-packager . SearchLauncher --platform=win32 --arch=x64 --out=dist --overwrite"
 }
+
+
+"scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },

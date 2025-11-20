@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 export async function POST(req) {
   await DBconnect();
 
+  
   try {
     const { token, newPassword } = await req.json();
 

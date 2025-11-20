@@ -13,9 +13,9 @@ export default function AuthForm() {
 
     let body = { action: mode, email };
     if (mode === "register") {
-      body = { action: "register", name, email, password };
+      body = { action: "register", name, email, password }; //backend ko user ko identify + verify + create karne ke kaam aati hain.
     } else if (mode === "login") {
-      body = { action: "login", email, password };
+      body = { action: "login", email, password }; //Backend jake database me dekhta hai ki ye user exist karta hai ya nahi.
     } else if (mode === "forgot") {
       body = { action: "forgot", email };
     }

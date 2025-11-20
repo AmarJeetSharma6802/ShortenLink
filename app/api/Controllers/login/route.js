@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import DBconnect from "../../utils/db.connect.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import crypto from "crypto";
+ import crypto from "crypto";
 import transporter from "../../utils/nodemailer.js";
 
 const failedLoginAttempts = new Map();
