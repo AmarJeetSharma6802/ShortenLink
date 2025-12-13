@@ -24,7 +24,7 @@
     "js": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
-    "next": "^15.3.0",
+    "next": "15.3.8",
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-chatbotify": "^2.3.0",
