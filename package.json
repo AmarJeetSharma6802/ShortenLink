@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/nextjs": "^6.14.2",
     "@google/generative-ai": "^0.24.1",
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/face_detection": "^0.4.1646425229",
     "axios": "^1.11.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -20,21 +22,22 @@
     "concurrently": "^9.2.1",
     "dotenv": "^16.4.7",
     "electron": "^38.2.2",
+    "face-api.js": "^0.22.2",
     "imagekit": "^6.0.0",
     "js": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
-    "next": "^15.3.0",
+    "next": "^16.0.10",
     "nodemailer": "^6.10.1",
-    "react": "^19.0.0",
+    "react": "^19.2.0",
     "react-chatbotify": "^2.3.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "24.2.1",
     "@types/react": "19.1.9",
     "eslint": "^9",
-    "eslint-config-next": "15.2.1"
+    "eslint-config-next": "^16.0.10"
   }
 }
