@@ -10,6 +10,8 @@ export async function  GET(){
   const foundItem = await item.find()
   return NextResponse.json({message:"Succefully Found", foundItem} ,{ status: 201 })
 }
+
+
 export async function POST(req){
 await DBconnect()
 

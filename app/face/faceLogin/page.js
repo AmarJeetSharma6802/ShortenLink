@@ -1,74 +1,62 @@
-"use client"
-import React,{useState,useEffect,useRef} from 'react'
-import * as faceapi from "face-api.js";
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-function page() {
-    const videoRef = useRef(null);
-     const [email, setEmail] = useState("");
-  const [ready, setReady] = useState(false);
+function Page() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  useEffect(() => {
-    async function loadModels() {
-      const MODEL_URL = "/models";
-      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
-      setReady(true);
-    }
-    loadModels();
+  const router = useRouter()
 
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      videoRef.current.srcObject = stream;
-    });
-  }, []);
+  const handlechange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const loginFace = async () => {
-    if (!ready) return alert("Models loading...");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
-
-    const dataUrl = canvas.toDataURL("image/jpeg");
-
-    const img = await faceapi.fetchImage(dataUrl);
-
-    const detection = await faceapi
-      .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
-      .withFaceLandmarks()
-      .withFaceDescriptor();
-
-      console.log("detec",detection)
-    
-
-    if (!detection) return alert("No face detected");
-
-    const descriptor = Array.from(detection.descriptor);
-
-    const res = await fetch("http://localhost:5000/job/login", {
+    const res = await fetch("http://localhost:5000/job/manullLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, descriptor }),
+      credentials: "include",
+      body: JSON.stringify({
+        email: form.email,
+        password: form.password,
+      }),
     });
 
     const data = await res.json();
-    alert(JSON.stringify(data));
-    console.log(data)
+
+    // if (data.accessToken) {
+    //   localStorage.setItem("accessToken", data.accessToken);
+    // }
+
+    alert(data.message || "Login done");
+
+    router.push("/job")
+
   };
-  
 
   return (
-     <div style={{ padding: 20 }}>
-      <h2>Face Login</h2>
-
-      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
-
-      <video ref={videoRef} autoPlay muted width={320} height={240} />
-
-      <button onClick={loginFace}>Login with Face</button>
-    </div>
-  )
+    <form onSubmit={handleSubmit}>
+      <input
+        name="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handlechange}
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={handlechange}
+      />
+      <button type="submit">Login</button>
+    </form>
+  );
 }
 
-export default page
+export default Page;
