@@ -46,6 +46,7 @@ function Dynaimcpage({ selectedContent }) {
       const data = await res.json();
     setIsApplied(data.applied);
     }
+
     fetchApplied()
   },[])
 
