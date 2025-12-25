@@ -33,6 +33,7 @@ function Dynaimcpage({ selectedContent }) {
 
   const data = await res.json();
   alert(data.message);
+  setIsApplied(true)
   
 };
 
@@ -72,6 +73,7 @@ function Dynaimcpage({ selectedContent }) {
       />
        <button onClick={handleApply}>{isApplied ? "Applied" : "Apply"}</button>
       </div>
+      
     </div>
   );
 }

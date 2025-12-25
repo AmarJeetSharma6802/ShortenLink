@@ -55,6 +55,9 @@ function Page() {
         onChange={handlechange}
       />
       <button type="submit">Login</button>
+
+      <p>amarsharma6802@gmail.com</p>
+      <p>amar@6802</p>
     </form>
   );
 }
