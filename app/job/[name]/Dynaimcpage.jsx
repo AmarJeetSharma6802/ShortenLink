@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { usePathname } from "next/navigation";
 
 function Dynaimcpage({ selectedContent }) {
@@ -33,9 +33,21 @@ function Dynaimcpage({ selectedContent }) {
 
   const data = await res.json();
   alert(data.message);
-setIsApplied(true)
   
 };
+
+  useEffect(()=>{
+
+    const fetchApplied = async()=>{
+
+      const res = await fetch(`http://localhost:5000/job/checkApplied/${selectedContent._id}`,{
+        credentials:"include"
+      })
+      const data = await res.json();
+    setIsApplied(data.applied);
+    }
+    fetchApplied()
+  },[])
 
   return (
     <div>
