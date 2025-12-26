@@ -13,6 +13,10 @@ function Dynaimcpage({ selectedContent }) {
   if (!file) return alert("Please upload resume");
   if (!coverLetter) return alert("Write cover letter");
 
+   if (isApplied) {
+    return alert("You have already applied for this job");
+  }
+
   const formData = new FormData();
 
   formData.append("resume", file); 
@@ -49,8 +53,9 @@ function Dynaimcpage({ selectedContent }) {
     }
 
     fetchApplied()
-  },[])
+  },[selectedContent._id])
 
+  
   return (
     <div>
       <div >
@@ -71,7 +76,7 @@ function Dynaimcpage({ selectedContent }) {
         accept=".pdf,.doc,.docx"
         onChange={(e) => setFile(e.target.files[0])}
       />
-       <button onClick={handleApply}>{isApplied ? "Applied" : "Apply"}</button>
+       <button onClick={handleApply}  disabled={isApplied}>{isApplied ? "Applied" : "Apply"}</button>
       </div>
       
     </div>
