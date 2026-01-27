@@ -10,7 +10,14 @@ function page() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const res = await fetch("http://localhost:5000/job/alljobs");
+      const res = await fetch("http://localhost:5000/job/alljobs",{
+        credentials:"include"
+      });
+        if (!res.ok) {
+          alert("you are not login ")
+      router.push("/face/faceLogin"); 
+      return;
+    }
       const data = await res.json();
 
       setDt(data.findjobs);
@@ -23,8 +30,10 @@ function page() {
   useEffect(()=>{
 const fetchUser = async () => {
       const res = await fetch("http://localhost:5000/job/userData",{
-        credentials:"include"
+        // credentials:"include"
       });
+
+    
       const data = await res.json();
 
       // console.log(data)
@@ -37,22 +46,23 @@ const fetchUser = async () => {
   
   
 
- const makeSlug = (text) =>
-    text
-      .toLowerCase()
-      .replace(/[,]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
+//  const makeSlug = (text) =>
+//     text
+//       .toLowerCase()
+//       .replace(/[,]/g, "")
+//       .replace(/\s+/g, "-")
+//       .replace(/-+/g, "-")
+//       .trim();
 
-  const handleClick = (companyName) => {
-    router.push(`/job/${makeSlug(companyName)}`);
+  const handleClick = (slug) => {
+    router.push(`/job/${slug}`);
   };
   return (
     <div>
   {userData && (
   <p>{userData.name}</p>
 )}
+
       {dt.map((item) => {
         return (
           <div key={item._id}>
@@ -62,9 +72,11 @@ const fetchUser = async () => {
               style={{ width: "50px" }}
             />
             <p>{item.companyName}</p>
+            <p>slug : {item.slug}</p>
             <p>{item.jobTitle}</p>
             <p>{item.skills}</p>
-            <button onClick={() => handleClick(item.companyName)}>
+            {/* <button onClick={() => handleClick(item.companyName)}> */}
+            <button onClick={() => handleClick(item.slug)}>
               all details
             </button>
           </div>
