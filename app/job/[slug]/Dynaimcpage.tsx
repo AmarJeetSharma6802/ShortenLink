@@ -2,11 +2,29 @@
 import React,{useState,useEffect} from "react";
 import { usePathname } from "next/navigation";
 
-function Dynaimcpage({ selectedContent }) {
+interface selectedContent{
+  _id: string;
+  companyName: string;
+  jobTitle: string;
+  description: string;
+  category: string;
+  salary: string;
+  numberOfOpening: number;
+  skills: string[];
+}
+
+interface DynamicPageProps {
+  selectedContent: selectedContent;
+}
+
+// function Dynaimcpage({ selectedContent }) {
+
+const Dynaimcpage: React.FC<DynamicPageProps> = ({ selectedContent }) => {
+  
      const pathname = usePathname(); 
-  const [file, setFile] = useState(null);
-  const [coverLetter, setCoverLetter] = useState("");
-  const [isApplied, setIsApplied] = useState(false);
+  const [file, setFile] = useState<File|null>(null);
+  const [coverLetter, setCoverLetter] = useState<string>("");
+  const [isApplied, setIsApplied] = useState<boolean>(false);
 
 
   const handleApply = async () => {
@@ -24,7 +42,7 @@ function Dynaimcpage({ selectedContent }) {
   formData.append("companyName", selectedContent.companyName);
   formData.append("jobTitle", selectedContent.jobTitle);
   formData.append("salary", selectedContent.salary);
-  formData.append("numberOfOpening", selectedContent.numberOfOpening);
+  formData.append("numberOfOpening", selectedContent.numberOfOpening.toString());
   formData.append("coverLetter", coverLetter);
   formData.append("skills", selectedContent.skills.join(","));
   formData.append("url", pathname);
@@ -35,7 +53,7 @@ function Dynaimcpage({ selectedContent }) {
     body: formData,
   });
 
-  const data = await res.json();
+  const data :{message:string} = await res.json();
   alert(data.message);
   setIsApplied(true)
   
@@ -48,7 +66,7 @@ function Dynaimcpage({ selectedContent }) {
       const res = await fetch(`http://localhost:5000/job/checkApplied/${selectedContent._id}`,{
         credentials:"include"
       })
-      const data = await res.json();
+      const data : {applied : boolean} = await res.json();
     setIsApplied(data.applied);
     }
 
