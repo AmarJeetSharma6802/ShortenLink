@@ -1,15 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {  useRouter } from "next/navigation";
+import { promises } from "dns";
 
-function page() {
-  const [dt, setDt] = useState([]);
-  const [userData, setuserData] = useState(null);
+interface job{
+    _id: string;
+  image: string;
+  companyName: string;
+  slug: string;
+  jobTitle: string;
+  skills: string[];
+}
+interface user{
+  name:string
+}
+
+const page: React.FC = () => {
+  const [dt, setDt] = useState<job[]>([]);
+  const [userData, setuserData] = useState<user | null>(null);
 
   const router = useRouter()
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchJobs = async ():Promise<void> => {
       const res = await fetch("http://localhost:5000/job/alljobs",{
         credentials:"include"
       });
@@ -28,7 +41,7 @@ function page() {
 
 
   useEffect(()=>{
-const fetchUser = async () => {
+const fetchUser = async ():Promise<void> => {
       const res = await fetch("http://localhost:5000/job/userData",{
         // credentials:"include"
       });
