@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {  useRouter } from "next/navigation";
-import { promises } from "dns";
 
 interface job{
     _id: string;
