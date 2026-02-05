@@ -120,11 +120,8 @@ interface User {
   name: string;
 }
 
-/* ---------------- FETCH FUNCTIONS ---------------- */
-
 const fetchJobs = async () => {
-  const res = await fetch("http://localhost:5000/job/alljobs", {
-    credentials: "include",
+  const res = await fetch("/job/alljobs", {
   });
 
   if (!res.ok) {
@@ -135,16 +132,17 @@ const fetchJobs = async () => {
 };
 
 const fetchUser = async () => {
-  const res = await fetch("http://localhost:5000/job/userData");
+  const res = await fetch("/job/userData",{
+    credentials: "include",
+
+  });
   return res.json();
 };
 
-/* ---------------- PAGE ---------------- */
 
 const Page = () => {
   const router = useRouter();
 
-  // 🔹 JOBS QUERY
   const {
     data: jobRes,
     isLoading,
@@ -167,7 +165,9 @@ const Page = () => {
     return null;
   }
 
-  const jobs: Job[] = jobRes.findjobs;
+ const jobs: Job[] = jobRes || [];
+
+
   const userData: User | undefined = userRes?.user;
 
   return (
