@@ -192,3 +192,12 @@ const Page = () => {
 };
 
 export default Page;
+
+// Backend (Mongoose) → extends Document
+// kyunki MongoDB record ek Mongoose document hota hai
+
+// Frontend (React) → simple interface
+// kyunki wo sirf data object hota hai
+// void = function kuch return nahi karega
+// any = kuch bhi ho sakta hai, TypeScript check mat karo
+// sync/await hamesha Promise ke saath hi kaam karta hai.

@@ -1,4 +1,3 @@
-// app/middleware/authUser.js
 
 import userForm from "../model/model.form";
 import jwt from "jsonwebtoken";
@@ -13,7 +12,7 @@ export async function authUser(req) {
     if (!token) {
       return { error: NextResponse.json({ message: "Unauthorized" }, { status: 401 }) };
     }
-
+    
     const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
     if (!decoded) {
       return { error: NextResponse.json({ message: "Unauthorized" }, { status: 401 }) };

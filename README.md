@@ -16,3 +16,53 @@
     "start": "next start",
     "lint": "next lint"
   },
+
+
+
+
+  MONGODB_URL = mongodb://localhost:27017/ShortenLinkNextjs
+MONGODB_URI = EcommerceBackend
+
+
+
+NEXT_PUBLIC_HOST = api/Shorten
+# NEXT_PUBLIC_HOST = 
+
+JWTSECRETKEY = 
+REFRESH_JWTSECRETKEY = 
+
+
+<!-- clerk  -->
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+
+
+CLOUDE_NAME = 
+
+API_KEY = 
+
+API_SECRET = 
+
+API_ENVIRONMENT = 
+
+
+IMAGEKIT_PUBLIC_KEY =
+IMAGEKIT_PRIVATE_KEY = 
+IMAGEKIT_URL_ENDPOINT = 
+
+SIGNATURE_URL = 
+
+EMAIL_USER =
+EMAIL_PASS = 
+
+CLIENT_URL = http://localhost:3000/restPass
+
+
+# redis 
+
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+
+# BASE_URL
+BASE_URL = http://localhost:3000/
